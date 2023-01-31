@@ -1,5 +1,4 @@
 import {configureStore} from "@reduxjs/toolkit"
-import boardReducer from "./boardSlice"
 import wordsBoardReducers from "./wordsBoardSlice"
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
