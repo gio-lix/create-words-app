@@ -1,0 +1,37 @@
+.key-board {
+    margin-top: 60px;
+}
+.chart {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.chart div {
+    margin: 5px;
+    width: 55px;
+    height: 45px;
+    border: 1px solid #6c6e6a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.chart span {
+    border: 1px solid #6c6e6a;
+    position: absolute;
+    width: 65px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.letter-back {
+    margin-left: 141px;
+}
+.letter-enter {
+    margin-right: 530px;
+    margin-top: 5px;
+}
