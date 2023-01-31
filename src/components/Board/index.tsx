@@ -1,15 +1,13 @@
 import "./board.css"
 import {RootState, useAppDispatch, useAppSelector} from "../../redux/store";
-import {ChangeEvent, useRef} from "react";
-import {setCurrentIndex} from "../../redux/wordsBoardSlice";
+import {ChangeEvent, useCallback,  useRef} from "react";
+import {setCurrentIndex, setWordToBoard} from "../../redux/wordsBoardSlice";
 import {useDragDrop} from "../../custom-hook/useDragDrop";
-import {useKey} from "../../custom-hook/useKey";
 
 
 const Board = () => {
-    const {key} = useKey()
     const dispatch = useAppDispatch()
-    const {board, correctWord} = useAppSelector((state: RootState) => state.board)
+    const {board, correctWord,currentIndex} = useAppSelector((state: RootState) => state.board)
 
     const {
         handleDragLeave,
@@ -25,17 +23,19 @@ const Board = () => {
     const handleFocus = (item: string,idx: number) => {
         dispatch(setCurrentIndex(idx))
     }
-    const handleInputValue = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+
+    const handle = useCallback((e: KeyboardEvent) => {
+        if (e.keyCode >= 65 && e.keyCode <= 89) {
+            const _board = [...board]
+            _board[currentIndex] = e.key
+            dispatch(setWordToBoard(_board))
+        }
+    },[currentIndex])
+
+    const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
         e.stopPropagation()
-        // const _board = [...board]
-        // _board[index] = key
-        //
-        // dispatch(setWordToBoard(_board))
-        //
-        // if (!inputRef.current) return
-        //
-        // inputRef.current.blur()
-        // dispatch(incCurrentIndex())
+        window.removeEventListener("keyup", handle)
+        window.addEventListener("keyup", handle)
     }
 
 
@@ -76,7 +76,7 @@ const Board = () => {
                         type="text"
                         value={item}
                         ref={inputRef}
-                        onChange={(e) => handleInputValue(e,index)}
+                        onChange={handleInputValue}
                         onFocus={() => handleFocus(item,index)}
                     />
                 </div>

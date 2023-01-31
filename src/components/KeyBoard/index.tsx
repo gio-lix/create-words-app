@@ -90,7 +90,10 @@ const KeyBoard = () => {
                             {letter}
                             {
                                 letter === "m"
-                                ? <span className="letter-back" onClick={clickBack}>Back</span> : null
+                                ? <span className="letter-back" onClick={(e) => {
+                                        if (board.join("").length >= 5) return
+                                        clickBack(e)
+                                    }}>Back</span> : null
                             }
                         </div>
                     ))}

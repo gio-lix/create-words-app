@@ -28,7 +28,6 @@ const Word = () => {
     return (
         <div className="word">
             <h1> {word}</h1>
-            <p>{correctWord}</p>
         </div>
     );
 };
