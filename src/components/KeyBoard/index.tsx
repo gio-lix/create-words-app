@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../redux/store";
 import {
     check,
     decCurrentIndex,
-    incCurrentIndex,
+    incCurrentIndex, setCurrentIndex,
     setNextWord,
     setReset,
     setWordToBoard
@@ -21,6 +21,18 @@ const KeyBoard = () => {
     ];
 
     useEffect(() => {
+        const _board = [...board]
+        if (_board.join("").length < 5 && currentIndex === 5) {
+            _board.forEach((element: string, index) => {
+                if (element === "") {
+                    dispatch(setCurrentIndex(index))
+                }
+            })
+        }
+
+    },[board])
+
+    useEffect(() => {
         if (currentIndex === 5) {
             dispatch(check(board.join("")))
         }
@@ -35,9 +47,9 @@ const KeyBoard = () => {
         return recursionFunc(arr, idx + 1 ,str)
     }
     const handleLetter = (str: string) => {
-        if (currentIndex > 4) return
-
         const _board = [...board]
+
+        if (String(_board.join("")).length >= 5) return
 
         if (_board[currentIndex] !== "") {
             return  recursionFunc(_board, currentIndex, str)
